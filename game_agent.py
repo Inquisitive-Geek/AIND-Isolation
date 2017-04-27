@@ -218,6 +218,7 @@ class MinimaxPlayer(IsolationPlayer):
                 each helper function or else your agent will timeout during
                 testing.
         """
+        self.TIMER_THRESHOLD = 20
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
 
@@ -309,15 +310,25 @@ class AlphaBetaPlayer(IsolationPlayer):
             # The try/except block will automatically catch the exception
             # raised when the timer is about to expire.
             # return self.minimax(game, self.search_depth)
-            for depth in itertools.count():
+            depth = 0
+            for count in itertools.count():
+
                 depth += 1
-                result_move = \
+                best_move = \
                     self.alphabeta(game, depth, alpha=float("-inf"), beta=float("inf"))
+
+                # if self.time_left() < 0.05:
+                #    break
+                # print(best_move)
+
         except SearchTimeout:
-            best_move = result_move # Handle any actions required after timeout as needed
+            return best_move # Handle any actions required after timeout as needed
+            # pass
 
         # Return the best move from the last completed search iteration
-        return best_move
+        # best_move = result_move
+
+        # return best_move
 
     def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf")):
         """Implement depth-limited minimax search with alpha-beta pruning as
@@ -364,6 +375,7 @@ class AlphaBetaPlayer(IsolationPlayer):
                 each helper function or else your agent will timeout during
                 testing.
         """
+        # self.TIMER_THRESHOLD = 20
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
 

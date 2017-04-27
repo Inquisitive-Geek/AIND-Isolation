@@ -1,0 +1,12 @@
+{
+    "critiques": {
+        "680": {
+            "rubric_items": {
+                "5510": {
+                    "observation": "{\"7. Test functionality of AlphaBetaPlayer.alphabeta()\": {\"traceback\": \"AssertionError: 7 != 4 : Your AlphaBetaAgent.alphabeta function did not call the heuristic evaluation function in all of the expected set of leaf nodes configurations in the game tree as player 1. Make sure that you are using the self.score() method to evaluate the board (not calling one of your heuristic functions directly) and verify your stopping conditions. Leaf nodes are shown as (player_1, player_2) location pairs.\\n\\nExpected:\\n{((5, 5), (3, 7)), ((6, 2), (3, 7)), ((8, 6), (3, 7)), ((8, 2), (3, 7))}\\nExplored:\\n{((5, 5), (5, 8)), ((5, 5), (1, 8)), ((5, 5), (1, 6)), ((8, 2), (1, 6)), ((5, 5), (2, 5)), ((8, 6), (1, 6)), ((6, 2), (1, 6))}\\n\\nTest Case Details:\\n------------------\\nHeuristic: open_move_score\\nDepth limit: 1\\nInitial Board State:\\n     0   1   2   3   4   5   6   7   8\\n\\r0  |   |   |   |   |   |   |   |   |   | \\n\\r1  |   |   | - |   |   |   |   |   |   | \\n\\r2  |   |   |   |   |   |   | - |   |   | \\n\\r3  |   |   | - | - | - | - |   | 2 |   | \\n\\r4  |   |   |   | - | - | - |   |   |   | \\n\\r5  |   |   |   | - | - |   | - |   |   | \\n\\r6  |   |   |   |   | - |   | - |   |   | \\n\\r7  |   |   |   |   | 1 |   |   |   |   | \\n\\r8  |   |   |   |   |   |   |   |   |   | \\n\\r\\n\\n\"}}",
+                    "result": "failed"
+                }
+            }
+        }
+    }
+}
