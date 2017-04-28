@@ -38,6 +38,7 @@ def custom_score(game, player):
     # raise NotImplementedError
     own_moves = len(game.get_legal_moves(player))
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    # Lessening the opponent moves even more than the current player moves helps
     return float(own_moves - 2*opp_moves)
 
 
@@ -66,9 +67,10 @@ def custom_score_2(game, player):
         The heuristic value of the current game state to the specified player.
     """
     # TODO: finish this function!
-    own_moves = len(game.get_legal_moves(player))
+    # Since the opponent moves seem to have more dominance, I wanted to raise it to a higher power but also
+    # thought it might be too much and hence scaled it back with a lower one - the results weren't that great
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
-    return float(own_moves - 3*opp_moves)
+    return float(2*pow(opp_moves,2) - 3*pow(opp_moves,3))
 
 
 def custom_score_3(game, player):
@@ -96,6 +98,8 @@ def custom_score_3(game, player):
     # TODO: finish this function!
     own_moves = len(game.get_legal_moves(player))
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    # I gave more weight to the opponent player's moves and scaled it to a greater power
+    # The results were comparable to the first heuristic
     return float(2*own_moves - 5*pow(opp_moves,2))
 
 
@@ -312,16 +316,18 @@ class AlphaBetaPlayer(IsolationPlayer):
             # return self.minimax(game, self.search_depth)
             depth = 0
             for count in itertools.count():
-
                 depth += 1
-                best_move = \
+                # print("In the loop of get_move(), the depth is: {} ".format(depth))
+                result_move = \
                     self.alphabeta(game, depth, alpha=float("-inf"), beta=float("inf"))
-
+                best_move = result_move
+                # print("In the loop of get_move(), The result from the loop of get_move() is: {} ".format(best_move))
                 # if self.time_left() < 0.05:
                 #    break
                 # print(best_move)
 
         except SearchTimeout:
+            # print("In get_move(), timeout occured. The best move returned is: {} ".format(best_move))
             return best_move # Handle any actions required after timeout as needed
             # pass
 
@@ -377,6 +383,7 @@ class AlphaBetaPlayer(IsolationPlayer):
         """
         # self.TIMER_THRESHOLD = 20
         if self.time_left() < self.TIMER_THRESHOLD:
+            # print("In Alphabeta(), timeout occured. The depth value is {} ".format(depth))
             raise SearchTimeout()
 
         # TODO: finish this function!
@@ -416,11 +423,17 @@ class AlphaBetaPlayer(IsolationPlayer):
         best_move = None
         for m in game.get_legal_moves():
             v = min_value(game.forecast_move(m), alpha, beta, depth)
+            # print("In Alphabeta(), the value returned after execution of min_value() is {} ".format(v))
             if v >= beta:
-                return v
+                # Need to fix this bug
+                # return v
+                best_move = m
+                break
             alpha = max(alpha, v)
             if v > best_score:
                 best_score = v
                 best_move = m
+                # print("In Alphabeta(), the value returned after execution of best_score() is {} ".format(v))
+                # print("In Alphabeta(), the value returned after execution of best_move() is {} ".format(m))
 
         return best_move
